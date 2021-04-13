@@ -39,7 +39,7 @@ class Home extends CI_Controller
     public function presensi()
     {
         $da['siswa'] = $this->M_Siswa->tampil_data();
-        $data['mapel'] = $this->M_Siswa->kelas();
+        $data['presensi'] = $this->M_Siswa->presensi();
         $this->load->view('templates/js');
         $this->load->view('templates/head');
         $this->load->view('templates/header', $da);
@@ -63,5 +63,16 @@ class Home extends CI_Controller
         $this->load->view('templates/header', $da);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/pesan');
+    }
+
+    public function profil_siswa()
+    {
+        $da['siswa'] = $this->M_Siswa->tampil_data();
+        $dasis['data_siswa'] = $this->M_Siswa->data_siswa();
+        $this->load->view('templates/js');
+        $this->load->view('templates/head');
+        $this->load->view('templates/header', $da);
+        $this->load->view('templates/sidebar');
+        $this->load->view('templates/profil_siswa', $dasis);
     }
 }

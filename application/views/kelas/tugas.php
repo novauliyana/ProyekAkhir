@@ -16,11 +16,11 @@
                         <?php foreach ($materi as $sia) : ?>
                             <tr height="50">
                                 <td width="60"><i class="mdi mdi-file-document-box mr-3 icon-md text-info"></i></td>
-                                <td width="500">Aljabar
-                                    <br><small class="text-danger " style="font-size: 10px">25 Desember 2020</small>
+                                <td width="500"><?= $sia['judul_tugas'] ?>
+                                    <br><small class="text-danger " style="font-size: 10px">Due : <?= date_format('d m y',  $sia['deadline']) ?> <?= $sia['waktu'] ?></small>
                                 </td>
                                 <td align="right" width="140">
-                                    <a href="<?= base_url() . $sia['berkas'] ?>">
+                                    <a href="<?= base_url() . $sia['file'] ?>">
                                         <button type="button" class="btn btn-success btn-sm">
                                             Download
                                         </button></a>

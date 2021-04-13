@@ -7,7 +7,7 @@
                         <div class="mr-md-3 mr-xl-5">
                             <h2>Presensi</h2>
                             <p class="card-description">
-                                Berikut adalah jadwal, <?= $tmp->nama ?>
+                                Berikut adalah rekap absensi, <?= $tmp->nama ?>
                             </p>
                         </div>
                     </div>
@@ -37,28 +37,28 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1;
-                                foreach ($mapel as $tmp) : ?>
+                                foreach ($presensi as $presensi) : ?>
                                     <tr>
                                         <td>
                                             <?= $no; ?>
                                         </td>
                                         <td>
-                                            <?php $date = $tmp['tanggal_presensi'];
+                                            <?php $date = $presensi['tanggal_presensi'];
                                             $date   =    date('l, d F Y', strtotime($date));
                                             echo $date;
                                             ?>
                                         </td>
                                         <td>
-                                            <?php $date = $tmp['tanggal_presensi'];
+                                            <?php $date = $presensi['tanggal_presensi'];
                                             $date   =    date('h:i:s a', strtotime($date));
                                             echo $date;
                                             ?>
                                         </td>
                                         <td>
-                                            <?= $tmp['nama_mapel'] ?>
+                                            <?= $presensi['nama_mapel'] ?>
                                         </td>
                                         <td class="py-1">
-                                            <img src="<?= base_url('assets/templates/'); ?>images/faces/face2.jpg" alt="image" />
+                                            <img src="<?= base_url() . $presensi['foto_absensi'] ?>" alt="image" class="card-img">
                                         </td>
                                     </tr>
                                 <?php $no++;

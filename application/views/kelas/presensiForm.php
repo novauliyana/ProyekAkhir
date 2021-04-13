@@ -12,7 +12,7 @@
                         </tr>
                     </table>
                     <hr>
-                    <form class="forms-sample" method="POST" action="<?= base_url('Kelas') ?>" enctype="multipart/form-data">
+                    <form class="forms-sample" method="POST" action="<?= base_url('Kelas/buktiAbsen') ?>" enctype="multipart/form-data">
                         <blockquote class="blockquote">
                             <table width="100%">
                                 <tr>
@@ -32,12 +32,13 @@
                                 <tr>
                                     <td>
                                         <blockquote class="blockquote">
-                                            <p class="mb-0"> <input type="file" name="file"> </p>
+                                            <?php echo form_open_multipart('Kelas/do_upload'); ?>
+                                            <input class="" name="foto" type="file" value="" placeholder="">
                                         </blockquote>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="right"><a href="<?= base_url('Kelas/index') ?>"><button type="submit" class="btn btn-success mr-2" value="" colspan="2">Submit</button></a></td>
+                                    <td align="right"><button type="submit" class="btn btn-success mr-2" value="" colspan="2">Submit</button></td>
                                 </tr>
                             </table>
                         </blockquote>

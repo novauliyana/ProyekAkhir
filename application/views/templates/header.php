@@ -21,9 +21,9 @@
                             <span class="nav-profile-name"><?= $tmp->nama; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="<?= base_url('Home/profil_siswa') ?>">
                                 <i class="mdi mdi-settings text-primary"></i>
-                                Settings
+                                Profil Siswa
                             </a>
                             <a class="dropdown-item" href="<?= base_url('Auth/logout') ?>">
                                 <i class="mdi mdi-logout text-primary"></i>

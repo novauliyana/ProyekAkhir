@@ -39,7 +39,30 @@
                                                 </div>
                                                 <!-- body modal -->
                                                 <div class="modal-body">
-                                                    <?= $sia['berkas'] ?>
+                                                    <form>
+                                                        <?php foreach ($materi as $k) : ?>
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td width="200"><b>Judul materi</b></td>
+                                                                    <td width="50">:</td>
+                                                                    <td><?= $k['judul_materi'] ?>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Deskripsi</b></td>
+                                                                    <td>:</td>
+                                                                    <td><?= $k['deskripsi'] ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>File</b></td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <a href="<?= base_url() . $k['berkas'] ?>">
+                                                                            <?= $k['nama_file'] ?></a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                            </table>
+                                                    </form>
                                                 </div>
                                                 <!-- footer modal -->
                                                 <div class="modal-footer">
