@@ -20,9 +20,12 @@ class M_Siswa extends CI_Model
     public function data_siswa()
     {
         $id = $this->session->userdata('id_user');
-        $this->db->where('id_user', $id);
-        $query = $this->db->get('siswa')->result();
-        return $query;
+        $this->db->select('*');
+        $this->db->from('siswa');
+        $this->db->join('user', 'siswa.id_user = user.id_user ');
+        $this->db->where('siswa.id_user', $id);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
 
@@ -63,5 +66,13 @@ class M_Siswa extends CI_Model
     public function get_tugas()
     {
         return $this->db->query("SELECT * FROM tugas")->result_array();
+    }
+    function ubah_profil($where, $data)
+    {
+        $this->db->update('siswa', $data, $where);
+    }
+    function ubah_foto($where, $data)
+    {
+        $this->db->update('user', $data, $where);
     }
 }

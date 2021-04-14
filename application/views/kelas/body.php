@@ -6,16 +6,18 @@
 
                     <table>
                         <tr>
-                            <td width="50"><i class="mdi mdi-book-open-page-variant  mr-3 icon-lg text-info"></i></td>
-                            <td width="300" valign="center">
-                                <p><b>XII IPA 1 Matematika</b></p>
-                            </td>
-                            <td align="right">
-                            <td>
-                                <a class="nav-link text-black" href="<?= base_url('Kelas/inPresensi') ?>">
-                                    <div class="btn btn-primary btn-sm">Presensi</div>
-                                </a>
-                            </td>
+                            <?php foreach ($mapel as $tmp) : ?>
+                                <td width="50"><i class="mdi mdi-book-open-page-variant  mr-3 icon-lg text-info"></i></td>
+                                <td width="300" valign="center">
+                                    <p><b><?= $tmp['nama_mapel'] ?></b></p>
+                                </td>
+                                <td align="right">
+                                <td>
+                                    <a class="nav-link text-black" href="<?= base_url('Kelas/inPresensi') ?>">
+                                        <div class="btn btn-primary btn-sm">Presensi</div>
+                                    </a>
+                                </td>
+                            <?php endforeach; ?>
                         </tr>
                     </table>
                     <hr>

@@ -17,7 +17,7 @@
 
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="<?= base_url('assets/templates/'); ?>images/faces/face2.jpg" alt="profile" />
+                            <img src="<?= base_url() . $tmp->image ?>" class="img-tumbnail"></<img>
                             <span class="nav-profile-name"><?= $tmp->nama; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">

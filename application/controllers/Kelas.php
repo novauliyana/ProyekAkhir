@@ -10,10 +10,12 @@ class Kelas extends CI_Controller
     public function index()
     {
         $da['siswa'] = $this->M_Siswa->tampil_data();
+        $data['mapel'] = $this->M_Siswa->kelas();
         $this->load->view('templates/js');
         $this->load->view('templates/head');
         $this->load->view('templates/header', $da);
         $this->load->view('templates/sidebar');
+        $this->load->view('kelas/body', $data);
         $this->load->view('kelas/body');
     }
 
