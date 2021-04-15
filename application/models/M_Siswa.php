@@ -41,6 +41,11 @@ class M_Siswa extends CI_Model
         return $query->result_array();
     }
 
+    public function get_class_in($id)
+    {
+        return $this->db->query("SELECT * from kelas join mapel USING(id_kelas) JOIN guru USING(id) WHERE id_mapel = $id")->result_array();
+    }
+
     public function presensi()
     {
         $id = $this->session->userdata('id_user');

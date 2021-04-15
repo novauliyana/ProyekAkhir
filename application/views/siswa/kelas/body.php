@@ -12,7 +12,7 @@
                                         <h5><b><?= $sia['nama_kelas'] ?> | <?= $sia['nama_mapel'] ?> (<?= $sia['kode_kelas'] ?>) </b></h5>
                                     </td>
                                     <td align="right">
-                                    <td><?php echo anchor('Kelas/inPresensi' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm"> Presensi </i></div>') ?></td>
+                                    <td><?php echo anchor('Home/inPresensi' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm"> Presensi </i></div>') ?></td>
                                     </td>
                                 </tr>
                             </table>
@@ -22,8 +22,8 @@
                                     <td width="50"><i class="mdi mdi-book mr-3 icon-md text-primary"></i></td>
                                     <td width="150">Materi </td>
                                     <td>
-                                        <a href="<?= base_url('Kelas/materi') ?>">
-                                    <td align="left" width="200"><?php echo anchor('Kelas/materi/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
+                                        <a href="<?= base_url('Home/materi') ?>">
+                                    <td align="left" width="200"><?php echo anchor('Home/materi/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
                                     </a>
                                     </td>
 
@@ -31,8 +31,8 @@
                                     <td width="50"><i class="mdi mdi-file mr-3 icon-md text-primary"></i></td>
                                     <td width="150">Kuis</td>
                                     <td>
-                                        <a href="<?= base_url('Kelas/kuis') ?>">
-                                    <td align="left" width="200"><?php echo anchor('Kelas/kuis/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
+                                        <a href="<?= base_url('Home/kuis') ?>">
+                                    <td align="left" width="200"><?php echo anchor('Home/kuis/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
                                     </a>
                                     </td>
                                 </tr>
@@ -40,16 +40,16 @@
                                     <td width="50"><i class="mdi mdi-file-document mr-3 icon-md text-primary"></td>
                                     <td width="150">Tugas</td>
                                     <td>
-                                        <a href="<?= base_url('Kelas/tugas') ?>">
-                                    <td align="left" width="200"><?php echo anchor('Kelas/tugas/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
+                                        <a href="<?= base_url('Home/tugas') ?>">
+                                    <td align="left" width="200"><?php echo anchor('Home/tugas/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
                                     </a>
                                     </td>
                                     <td width="100"></td>
                                     <td width="50"><i class="mdi mdi-file-check mr-3 icon-md text-primary"></td>
                                     <td width="150">Ulangan</td>
                                     <td>
-                                        <a href="<?= base_url('Kelas/ulangan') ?>">
-                                    <td align="left" width="200"><?php echo anchor('Kelas/ulangan/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
+                                        <a href="<?= base_url('Home/ulangan') ?>">
+                                    <td align="left" width="200"><?php echo anchor('Home/ulangan/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm">Buka</div>') ?></td>
                                     </a>
                                     </td>
                                 </tr>

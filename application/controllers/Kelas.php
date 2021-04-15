@@ -16,7 +16,17 @@ class Kelas extends CI_Controller
         $this->load->view('templates/header', $da);
         $this->load->view('templates/sidebar');
         $this->load->view('kelas/body', $data);
-        $this->load->view('kelas/body');
+    }
+
+    public function detail_kelas($id)
+    {
+        $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+        $data['mapel'] = $this->M_Siswa->get_class_in($id);
+        $this->load->view('templates/js');
+        $this->load->view('templates/head');
+        $this->load->view('templates/header', $da);
+        $this->load->view('templates/sidebar');
+        $this->load->view('kelas/body', $data);
     }
 
     public function materi()
