@@ -18,11 +18,9 @@
                                         Mata Pelajaran
                                     </th>
                                     <th>
-                                        Progress
-                                    </th>
-                                    <th>
                                         Deadline
                                     </th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,12 +35,10 @@
                                         Matematika
                                     </td>
                                     <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                                        12 Desember 23.59
                                     </td>
                                     <td>
-                                        12 Desember 23.59
+                                        Selesai
                                     </td>
                                 </tr>
                                 <tr>
@@ -55,13 +51,12 @@
                                     <td>
                                         Fisika
                                     </td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </td>
+
                                     <td>
                                         12 Desember 23.59
+                                    </td>
+                                    <td>
+                                        Selesai
                                     </td>
                                 </tr>
                                 <tr>
@@ -74,13 +69,12 @@
                                     <td>
                                         Kimia
                                     </td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 10%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </td>
+
                                     <td>
                                         12 Desember 23.59
+                                    </td>
+                                    <td>
+                                        Selesai
                                     </td>
                                 </tr>
 

@@ -65,6 +65,17 @@ class Home extends CI_Controller
         $this->load->view('siswa/pesan/pesan');
     }
 
+    public function profil()
+    {
+        $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+        $dasis['data_siswa'] = $this->M_Siswa->data_siswa();
+        $this->load->view('siswa/js');
+        $this->load->view('siswa/head');
+        $this->load->view('siswa/header', $da);
+        $this->load->view('siswa/sidebar');
+        $this->load->view('siswa/profil/profil');
+    }
+
     public function profil_siswa()
     {
         $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
@@ -73,7 +84,7 @@ class Home extends CI_Controller
         $this->load->view('siswa/head');
         $this->load->view('siswa/header', $da);
         $this->load->view('siswa/sidebar');
-        $this->load->view('siswa/profil/profil_siswa', $dasis);
+        $this->load->view('siswa/profil/ubah_profil', $dasis);
     }
 
     public function ubah_profil($id_user)
@@ -184,14 +195,15 @@ class Home extends CI_Controller
         $this->load->view('siswa/kelas/tugas', $data);
     }
 
-    public function inPresensi()
+    public function inPresensi($id)
     {
         $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+        $data['mapel'] = $this->M_Siswa->get_class_in($id);
         $this->load->view('siswa/js');
         $this->load->view('siswa/head');
         $this->load->view('siswa/header', $da);
         $this->load->view('siswa/sidebar');
-        $this->load->view('siswa/kelas/presensiForm');
+        $this->load->view('siswa/kelas/presensiForm', $data);
     }
 
     public function buktiAbsen()
@@ -223,7 +235,7 @@ class Home extends CI_Controller
                 'status' => 'sudah absen'
             ];
             $this->db->insert('presensi', $data);
-            redirect('Kelas');
+            redirect('Home/kelas');
         } else {
             redirect('Home/inPresensi');
         }
@@ -247,5 +259,101 @@ class Home extends CI_Controller
         $this->load->view('siswa/header', $da);
         $this->load->view('siswa/sidebar');
         $this->load->view('siswa/kelas/lihatUlangan');
+    }
+
+    //chat
+
+    public function dashboard()
+    {
+        $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+
+        $username = $this->session->userdata('username');
+        $id = $this->session->userdata('id_user');
+        if (!$username) {
+            redirect('home');
+        }
+
+        $this->db->where('username !=', $username);
+        $data['users'] = $this->db->get('user')->result();
+        $data['isread'] = $this->db->query("SELECT isread,chats.to FROM chats WHERE chats.isread=0 AND chats.to=$id GROUP BY isread")->result();
+
+        $this->load->view('siswa/js');
+        $this->load->view('siswa/head');
+        $this->load->view('siswa/header', $da);
+        $this->load->view('siswa/sidebar');
+        $this->load->view('chat/dashboard', $data);
+    }
+
+    public function chat($to)
+    {
+        $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+        $dataUser['users'] = $this->db->get('user')->result();
+        $username = $this->session->userdata('username');
+        $id = $this->session->userdata('id_user');
+
+        if (!$username) {
+            redirect('home');
+        }
+
+        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+            $message = $this->input->post('message');
+
+            $data  = [
+                'from' => $id,
+                'to' => $to,
+                'message' => $message,
+                'isread' => 0
+            ];
+
+            $this->db->insert('chats', $data);
+            redirect('home/chat/' . $to);
+        } else {
+            $this->db->where_in('from', [$id, $to]);
+            $this->db->where_in('to', [$id, $to]);
+            $this->db->order_by('created_at', 'ASC');
+            $data['to'] = $to;
+            $data['chats'] = $this->db->get('chats')->result();
+
+            $this->load->view('siswa/js');
+            $this->load->view('siswa/head');
+            $this->load->view('siswa/header', $da);
+            $this->load->view('siswa/sidebar');
+            $this->load->view('chat/chat', $data);
+        }
+    }
+
+    public function ajax($to)
+    {
+        $id = $this->session->userdata('id_user');
+
+        $this->db->where_in('from', [$id, $to]);
+        $this->db->where_in('to', [$id, $to]);
+        $this->db->order_by('created_at', 'ASC');
+        $data['to'] = $to;
+        $data['chats'] = $this->db->get('chats')->result();
+
+        $result = '<div class="border rounded">';
+
+        foreach ($data['chats'] as $item) {
+            if ($item->from == $id) {
+                $result .= '<div class="text-right"><span class="mr-2 text-primary" style="font-size:22px;">' . $item->message . '</span><br><span style="font-size:11px;" class="text-secondary mr-2">' . date('d-m-Y H:i:s', strtotime($item->created_at)) . '</span></div>';
+            } else {
+                $result .= '<div class="text-left"><span class="ml-2" style="font-size:22px;">' . $item->message . '</span><br><span style="font-size:11px;" class="text-secondary ml-2">' . date('d-m-Y H:i:s', strtotime($item->created_at)) . '</span></div>';
+            }
+        }
+        $result .= '</div>';
+        echo $result;
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('home');
+    }
+
+    public function view($page, $data = [])
+    {
+        $this->load->view('siswa/header');
+        $this->load->view($page, $data);
     }
 }

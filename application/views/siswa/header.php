@@ -21,9 +21,9 @@
                         <span class="nav-profile-name"><?= $siswa['nama'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="<?= base_url('Home/profil_siswa') ?>">
-                            <i class="mdi mdi-settings text-primary"></i>
-                            Profil Siswa
+                        <a class="dropdown-item" href="<?= base_url('Home/profil') ?>">
+                            <i class="mdi mdi-account text-primary"></i>
+                            Profile
                         </a>
                         <a class="dropdown-item" href="<?= base_url('Auth/logout') ?>">
                             <i class="mdi mdi-logout text-primary"></i>

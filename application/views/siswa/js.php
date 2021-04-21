@@ -17,3 +17,4 @@
  <script src="<?= base_url('assets/templates/'); ?>js/jquery.dataTables.js"></script>
  <script src="<?= base_url('assets/templates/'); ?>js/dataTables.bootstrap4.js"></script>
  <!-- End custom js for this page-->
+ <script src="<?= base_url('assets/js/jquery-3.5.1.min.js') ?>"></script>

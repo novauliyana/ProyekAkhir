@@ -97,7 +97,12 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Password</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" value="<?= $sia['password'] ?>" name="password">
+                                            <div class="input-group-prepend row">
+                                                <input type="password" class="form-control" value="<?= $sia['password'] ?>" name="password" id="password">
+                                                <span class="form-group-text bg-transparent" id="button" onclick="change()">
+                                                    <i class="mdi mdi-eye-outline text-primary"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -127,3 +132,16 @@
     </div>
 
 </div>
+<script type="text/javascript">
+    function change() {
+        var x = document.getElementById('password').type;
+
+        if (x == 'password') {
+            document.getElementById('password').type = 'text';
+            document.getElementById('button').innerHTML = '<i class="mdi mdi-eye-off text-primary"></i>';
+        } else {
+            document.getElementById('password').type = 'password';
+            document.getElementById('button').innerHTML = '<i class="mdi mdi-eye-outline text-primary"></i>';
+        }
+    }
+</script>

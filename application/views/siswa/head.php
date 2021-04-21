@@ -14,4 +14,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/templates/'); ?>css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="<?= base_url('assets/templates/'); ?>images/favicon.png" />
+
+
+
 </head>

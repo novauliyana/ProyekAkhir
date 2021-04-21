@@ -12,7 +12,7 @@
                                         <h5><b><?= $sia['nama_kelas'] ?> | <?= $sia['nama_mapel'] ?> (<?= $sia['kode_kelas'] ?>) </b></h5>
                                     </td>
                                     <td align="right">
-                                    <td><?php echo anchor('Home/inPresensi' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm"> Presensi </i></div>') ?></td>
+                                    <td><?php echo anchor('Home/inPresensi/' . $sia['id_mapel'], '<div class="btn btn-primary btn-sm"> Presensi </i></div>') ?></td>
                                     </td>
                                 </tr>
                             </table>
