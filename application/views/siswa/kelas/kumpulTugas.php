@@ -18,12 +18,12 @@
                                 <?php foreach ($materi as $sia) : ?>
                                     <tr>
                                         <td>
-                                            <h5 class="card-text"><?= $sia['judul_materi'] ?></h5>
+                                            <h5 class="card-text"><?= $sia['judul_tugas'] ?></h5>
                                             <input type="hidden" name="id_mapel" class="form-control" value="1">
                                             <input type="hidden" name="id_tugas" class="form-control" value="2">
                                         </td>
                                         <td>
-                                            <h5 class="card-text">Due : 25 November 2020</h5>
+                                            <h5 class="card-text">Due : <?= date('d F Y',  strtotime($sia['deadline'])) ?> &nbsp; <?= $sia['waktu'] ?></h5>
                                         </td>
                                     </tr>
                                     <tr>

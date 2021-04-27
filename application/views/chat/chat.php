@@ -3,7 +3,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h1><a href="<?= base_url('home/dashboard') ?>" class="btn btn-danger">
+                    <h1><a href="<?= base_url('home/dashboard') ?>" class="btn btn-primary">
                             <<< </a>
                                 nama
 

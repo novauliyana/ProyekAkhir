@@ -17,6 +17,8 @@ class Home extends CI_Controller
         $this->load->view('siswa/sidebar');
         $this->load->view('siswa/body', $data);
     }
+
+    //sidebar
     public function kelas()
     {
         $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
@@ -117,6 +119,7 @@ class Home extends CI_Controller
     }
 
 
+    //didalam kelas
     public function inKelas($id)
     {
         $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
@@ -164,7 +167,7 @@ class Home extends CI_Controller
     public function kumpulTugas()
     {
         $da['siswa'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
-        $data['materi'] = $this->M_Siswa->get_materi();
+        $data['materi'] = $this->M_Siswa->get_tugas();
         $this->load->view('siswa/js');
         $this->load->view('siswa/head');
         $this->load->view('siswa/header', $da);
@@ -343,12 +346,6 @@ class Home extends CI_Controller
         }
         $result .= '</div>';
         echo $result;
-    }
-
-    public function logout()
-    {
-        $this->session->sess_destroy();
-        redirect('home');
     }
 
     public function view($page, $data = [])
