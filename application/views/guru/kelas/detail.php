@@ -22,7 +22,7 @@
                                         <tr>
                                             <td><b>Kode Mata Pelajaran</b></td>
                                             <td>:</td>
-                                            <td><?= $k['kode'] ?></td>
+                                            <td><?= $k['kode_kelas'] ?></td>
                                         </tr>
                                         <tr>
                                             <td><b>Nama Guru Pengajar</b></td>
@@ -37,7 +37,7 @@
                                         <tr>
                                             <td><b>Anggota</b></td>
                                             <td>:</td>
-                                            <td><?php echo anchor('guru/anggota/' . $k['id_kelas'], '<div class="btn btn-primary btn-sm"> Lihat Anggota </i></div>') ?></td>
+                                            <td><?php echo anchor('guru/anggota/' . $k['id_kelas'], '<div class="btn btn-primary btn-sm"> Lihat Siswa </i></div>') ?></td>
                                         </tr>
 
                                     <?php endforeach; ?>

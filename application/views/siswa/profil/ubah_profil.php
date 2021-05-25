@@ -80,6 +80,7 @@
                                         <label class="col-sm-3 col-form-label">Nomor Handphone</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" value="<?= $sia['no_hp'] ?>" name="nohp_siswa">
+                                            <?= form_error('nohp_siswa', '<small class="text-danger">', '</small>'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -112,9 +113,13 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Foto</label>
                                         <div class="col-sm-9">
-                                            <img src="<?= base_url() . $sia['image']; ?>" width="200" height="200" class="img-tumbnail"></<img>
                                             <?php echo form_open_multipart('Home/do_upload'); ?>
+                                            <?php if ($sia['image'] != null) { ?>
+                                                <img src="<?= base_url() . $sia['image']; ?>" width="200" height="200" class="img-tumbnail">
+                                            <?php }
+                                            ?>
                                             <input type="file" class="form-control" value="<?= base_url() . $sia['image'] ?>" name="foto">
+                                            </img>
 
                                         </div>
                                     </div>

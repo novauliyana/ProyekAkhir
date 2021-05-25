@@ -30,7 +30,7 @@ class Siswa_m extends CI_Model
 
     public function anggota($id)
     {
-        return $this->db->query("SELECT * from siswa WHERE id_kelas = $id order by nis")->result_array();
+        return $this->db->query("SELECT * from user join siswa USING(id_user) WHERE id_kelas = $id order by nis")->result_array();
     }
 
     public function get_count_anggota($id)
@@ -148,11 +148,32 @@ class Siswa_m extends CI_Model
         return $this->db->query("SELECT * FROM ulangan where id_mapel = " . $id)->result_array();
     }
 
+    public function get_data($table)
+    {
+        return $this->db->get($table);
+    }
+
+    public function get_ulangan_pilgan($id)
+    {
+        return $this->db->query('SELECT * from soal_ujian_pilgan join ulangan USING(id_ulangan) where id_ulangan="' . $id . '" order by id_soal desc')->result_array();
+    }
+
+    public function get_ulangan_essai($id)
+    {
+        return $this->db->query('SELECT * from soal_ujian_essai join ulangan USING(id_ulangan) where id_ulangan="' . $id . '" order by id_soal_esai desc')->result_array();
+    }
+
+
+
+    public function get_kumpululangan($id)
+    {
+        return $this->db->query("SELECT * FROM kumpul_ulangan join siswa using(id_user) where id_ulangan = " . $id)->result_array();
+    }
+
     public function get_ulangan_detail($id)
     {
         return $this->db->query("SELECT * FROM ulangan where id_ulangan = " . $id)->result_array();
     }
-
     public function tambah_data_ulangan($data)
     {
         $this->db->insert('ulangan', $data);
@@ -180,8 +201,21 @@ class Siswa_m extends CI_Model
     public function jadwal_guru()
     {
         $id = $this->session->userdata('id_user');
-        return $this->db->query("SELECT * FROM jadwal join guru using(id) join kelas using(id_kelas) join mapel using 
-        (id_mapel) where id_user = " . $id)->result_array();
+        // return $this->db->query("SELECT * FROM jadwal JOIN hari using(id_h) join jampel using(id_j) join guru using(id) join kelas using(id_kelas) join mapel using 
+        // (id_mapel) where id_user = " . $id)->result_array();
+
+        $this->db->select('*');
+        $this->db->from('jadwal');
+        $this->db->join('hari', 'jadwal.id_h = hari.id_h');
+        $this->db->join('jampel', 'jadwal.id_j = jampel.id_j');
+        $this->db->join('kelas', 'jadwal.id_kelas = kelas.id_kelas');
+        $this->db->join('mapel', 'jadwal.id_mapel = mapel.id_mapel');
+        $this->db->join('guru', 'jadwal.id = guru.id');
+        $this->db->where('guru.id_user', $id);
+        $query = $this->db->get();
+        return $query->result_array();
+
+        //return $this->db->query("SELECT * FROM jadwal join guru using(id) where id_user = " . $id)->result_array();
     }
 
 
@@ -227,10 +261,7 @@ class Siswa_m extends CI_Model
         return $this->db->query("SELECT * FROM kumpul_kuis join siswa using(id_user) where id_kuis = " . $id)->result_array();
     }
 
-    public function get_kumpululangan($id)
-    {
-        return $this->db->query("SELECT * FROM kumpul_ulangan join siswa using(id_user) where id_ulangan = " . $id)->result_array();
-    }
+
 
     public function get_count_kumpultugas($id)
     {
@@ -276,5 +307,37 @@ class Siswa_m extends CI_Model
     function updatenilaiulangan($where, $data)
     {
         $this->db->update('kumpul_ulangan', $data, $where);
+    }
+
+
+    public function insert_data($data, $table)
+    {
+        $this->db->insert($table, $data);
+    }
+
+    public function update_data($where, $data, $table)
+    {
+        $this->db->where($where);
+        $this->db->update($table, $data);
+    }
+
+    public function edit_data($where, $table)
+    {
+        return $this->db->get_where($table, $where);
+    }
+
+    public function get_soal_pilgan($id)
+    {
+        return $this->db->query('SELECT * from soal_ujian_pilgan where id_soal="' . $id . '" order by id_soal desc')->result_array();
+    }
+
+    public function get_soal_essai($id)
+    {
+        return $this->db->query('SELECT * from soal_ujian_essai where id_soal_esai="' . $id . '" order by id_soal_esai desc')->result_array();
+    }
+
+    public function get_tipe_ulangan($id)
+    {
+        return $this->db->query('SELECT * from soal_ujian_pilgan join ulangan USING(id_ulangan) where id_ulangan="' . $id . '" order by id_soal desc')->result_array();
     }
 }

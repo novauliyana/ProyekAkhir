@@ -11,9 +11,9 @@
               <div class="brand-logo">
                 <img src="<?= base_url('assets/templates/') ?>images/logo-sma-01.png" alt="logo">
               </div>
-              <h4>Masuk</h4>
-              <h6 class="font-weight-light">Selamat datang di LMS SMA Prestasi Prima.</h6>
-              <form class="pt-3" method="post" action="<?= base_url('auth') ?>">
+              <h4>Lupa Password</h4>
+              <h6 class="font-weight-light">Silahkan masukkan alamat email anda.</h6>
+              <form class="pt-3" method="post" action="<?= base_url('auth/kirimEmail') ?>">
                 <?= $this->session->flashdata('message'); ?>
                 <div class="form-group">
                   <div class="input-group">
@@ -29,28 +29,13 @@
                   </div>
                   <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
                 </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-prepend bg-transparent">
-                      <span class="input-group-text bg-transparent border-right-0">
-                        <i class=" mdi mdi-lock-outline text-primary"></i>
-                      </span>
-                      <input type="password" class="form-control form-control-lg border-right-0 border-right-0" id="password" name="password" placeholder="Password">
-                      <div class="input-group-prepend bg-transparent">
-                        <span class="input-group-text bg-transparent border-left-0" id="button" onclick="change()">
-                          <i class="mdi mdi-eye-outline text-primary"></i>
-                        </span>
-                      </div>
 
-                    </div>
-                    <?= form_error('password', '<small class="text-danger">', '</small>'); ?>
-                  </div>
-                  <div class="my-2 d-flex justify-content-between align-items-center">
-                    <a href="<?= base_url('auth/forgotpassword') ?>" class="auth-link text-black">Lupa kata sandi?</a>
-                  </div>
-                  <div class="my-3">
-                    <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">LOGIN</button>
-                  </div>
+                <div class="my-2 d-flex justify-content-between align-items-center">
+                  <a href="<?= base_url('auth/') ?>" class="auth-link text-black">Kembali ke halaman Login</a>
+                </div>
+                <div class="my-3">
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">LOGIN</button>
+                </div>
               </form>
             </div>
           </div>

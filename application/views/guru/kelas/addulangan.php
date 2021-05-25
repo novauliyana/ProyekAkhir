@@ -20,6 +20,14 @@
                                 <input type="text" class="form-control" name="deskripsi" placeholder="Deskripsi" value="<?= set_value('deskripsi') ?>">
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">Tipe soal</label>
+                                <select class="form-control" name="tipe" required>
+                                    <option selected="selected" disabled="" value="">- Pilih Tipe Soal -</option>
+                                    <option>Pilihan Ganda</option>
+                                    <option>Essai</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputEmail3">Tanggal Pengumpulan</label>
                                 <input type="date" class="form-control" name="deadline" placeholder="Deskripsi" value="<?= set_value('deadline') ?>">
                                 <?= form_error('deadline', '<small class="text-danger">', '</small>'); ?>
@@ -29,17 +37,7 @@
                                 <input type="time" class="form-control" name="waktu" placeholder="Deskripsi" value="<?= set_value('waktu') ?>">
                                 <?= form_error('waktu', '<small class="text-danger">', '</small>'); ?>
                             </div>
-                            <div class="form-group">
-                                <label>File upload</label>
-                                <input type="file" name="image" class="form-control">
-                                <!-- <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                                    <span class="input-group-append">
-                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
-                                </div> -->
-                                <?= form_error('image', '<small class="text-danger">', '</small>'); ?>
-                            </div>
+
                             <center>
                                 <button type="submit" class="btn btn-success btn-sm">
                                     Submit

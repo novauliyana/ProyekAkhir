@@ -4,8 +4,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1><a href="<?= base_url('home/dashboard') ?>" class="btn btn-primary">
-                            <<< </a>
-                                nama
+                            <<< </a> nama
 
                     </h1>
                     <div id="tmp">
@@ -14,7 +13,7 @@
                             $id = $this->session->userdata('id');
                             foreach ($chats as $item) {
                             ?>
-                                <?php if ($item->from == $id) { ?>
+                                <?php if ($item->dari == $id) { ?>
                                     <div class="text-right"><span class="mr-2 text-primary" style="font-size:22px;"><?= $item->message ?></span><br>
                                         <span style="font-size:11px;" class="text-secondary mr-2"><?= date('d-m-Y H:i:s', strtotime($item->created_at)) ?></span>
                                     </div>
@@ -27,7 +26,7 @@
                         </div>
                     </div>
 
-                    <form method="post" action="<?= base_url('home/chat/' . $to) ?>">
+                    <form method="post" action="<?= base_url('home/chat/' . $untuk) ?>">
                         <div class="row">
                             <div class="col-10">
                                 <input type="text" name="message" class="form-control" placeholder="Tulis Pesan Kamu">
@@ -48,7 +47,7 @@
 
                         function ajaxChat() {
                             $.ajax({
-                                url: "<?= base_url('home/ajax/' . $to) ?>",
+                                url: "<?= base_url('home/ajax/' . $untuk) ?>",
                                 success: function(result) {
                                     $("#tmp").html(result);
                                 }

@@ -29,21 +29,33 @@
                                             <td>:</td>
                                             <td><?= $k['waktu'] ?></td>
                                         </tr>
-                                        <tr>
-                                            <td><b>File</b></td>
-                                            <td>:</td>
-                                            <td>
-                                                <a href="<?= base_url() . $k['file'] ?>">
-                                                    <?= $k['nama_file'] ?></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><?php echo anchor('guru/kumpululangan/' . $k['id_ulangan'] . '/' .
-                                                    $k['id_mapel'], '<div class="btn btn-primary btn-sm">Lihat Pengumpulan</div>') ?></td>
 
-                                        </tr>
-                                    <?php endforeach; ?>
                                     </table>
+                                    <br>
+                                    <tr>
+                                        <td>
+                                            <?php if ('Pilihan Ganda' == $k['tipe']) {
+                                                echo ('<a href="' . base_url() . 'guru/ulangan_pilgan/' . $k['id_ulangan'] . '/' .
+                                                    $k['id_mapel'] . '"><button type="button" class="btn btn-primary btn-sm">
+                                        Lihat Soal
+                                    </button></a>');
+                                            } else {
+                                                echo ('<a href="' . base_url() . 'guru/ulangan_essai/' . $k['id_ulangan'] . '/' .
+                                                    $k['id_mapel'] . '"><button type="button" class="btn btn-primary btn-sm">
+                                        Lihat Soal
+                                    </button></a>');
+                                            }
+                                            ?>
+
+                                            <!-- </td>
+                                        <?php echo anchor('guru/soalulangan/' . $k['id_ulangan'] . '/' .
+                                            $k['id_mapel'], '<div class="btn btn-primary btn-sm">Lihat Soal</div>') ?> -->
+                                            <?php echo anchor('guru/kumpululangan/' . $k['id_ulangan'] . '/' .
+                                                $k['id_mapel'], '<div class="btn btn-primary btn-sm">Lihat Pengumpulan</div>') ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </table>
                             </form>
                         </div>
                     </div>

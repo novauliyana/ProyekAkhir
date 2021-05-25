@@ -21,16 +21,38 @@
                             </tr>
                         </table>
                         <hr>
-                        <table>
-                            <?php foreach ($ulangan as $sia) : ?>
-                                <tr height="50">
-                                    <td width="1000"><?= $sia['judul_ulangan'] ?>
-                                        <br><small class="text-success " style="font-size: 10px"><?= $sia['tanggal'] ?></small>
-                                    </td>
-                                    <td><?php echo anchor('guru/lihat_ulangan/' . $sia['id_ulangan'] . '/' . $sia['id_mapel'], '<div class="btn btn-inverse-primary btn-sm"><i class="mdi mdi-eye"></div>') ?></td>
-                                    <td><?php echo anchor('guru/edit_ulangan/' . $sia['id_ulangan'] . '/' . $sia['id_mapel'], '<div class="btn btn-inverse-warning btn-sm"><i class="mdi mdi-pencil"></div>') ?></td>
-                                    <td><?php echo anchor('guru/hapus_ulangan/' . $sia['id_ulangan'] . '/' . $sia['id_mapel'], '<div class="btn btn-inverse-danger btn-sm"><i class="mdi mdi-delete"></i></div>') ?></td>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Judul Ulangan</th>
+                                    <th>Tanggal Ulangan</th>
+                                    <th>Jenis Ulangan</th>
+                                    <th>Waktu</th>
+                                    <th>Aksi</th>
                                 </tr>
+                            </thead>
+                            <?php $no = 1;
+                            foreach ($ulangan as $sia) : ?>
+                                <tbody>
+                                    <tr height="50">
+                                        <td><?= $no ?></td>
+                                        <td><?= $sia['judul_ulangan'] ?></td>
+                                        <td><?= $sia['deadline'] ?></td>
+                                        <td><?= $sia['tipe'] ?></td>
+                                        <td><?= $sia['waktu'] ?></td>
+                                        <td width="30%">
+                                            <?php echo anchor('guru/lihat_ulangan/' . $sia['id_ulangan'] . '/' . $sia['id_mapel'], '<button type="button" class="btn btn-inverse-primary btn-icon">
+                        <i class="mdi mdi-eye"></i>
+                      </button>') ?>
+                                            <?php echo anchor('guru/edit_ulangan/' . $sia['id_ulangan'] . '/' . $sia['id_mapel'], '<button type="button" class="btn btn-inverse-warning btn-icon">
+                        <i class="mdi mdi-pencil"></i>
+                      </button>') ?>
+                                            <?php echo anchor('guru/hapus_ulangan/' . $sia['id_ulangan'] . '/' . $sia['id_mapel'], '<button type="button" class="btn btn-inverse-danger btn-icon">
+                        <i class="mdi mdi-delete"></i>
+                      </button>') ?></td>
+                                    </tr>
+                                </tbody>
                             <?php endforeach; ?>
                         </table>
                     </div>

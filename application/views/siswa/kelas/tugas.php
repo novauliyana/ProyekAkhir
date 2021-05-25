@@ -26,7 +26,7 @@
                                         </button></a>
                                 </td>
                                 <td align="right" width="140">
-                                    <a href="<?= base_url('Home/lihatTugas/' . $sia['id_tugas']) ?>">
+                                    <a href="<?= base_url('Home/lihatTugas/'  . $sia['id_mapel'] . '/' . $sia['id_tugas']) ?>">
 
                                         <button type="button" class="btn btn-success btn-sm">
                                             Lihat Tugas

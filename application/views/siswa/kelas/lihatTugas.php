@@ -12,15 +12,15 @@
                         </tr>
                     </table>
                     <hr>
-                    <form class="forms-sample" method="POST" action="" enctype="multipart/form-data">
+                    <form class="forms-sample" method="POST" action="<?= base_url('Home/kumpulTugas') ?> " enctype="multipart/form-data">
                         <blockquote class="blockquote">
                             <table width="100%">
                                 <?php foreach ($materi as $sia) : ?>
                                     <tr>
                                         <td>
                                             <h5 class="card-text"><?= $sia['judul_tugas'] ?></h5>
+                                            <input type="hidden" class="form-control" name="id_tugas" value="<?= $this->uri->segment('4') ?>">
                                             <input type="hidden" class="form-control" name="id_mapel" value="<?= $this->uri->segment('3') ?>">
-                                            <input type="hidden" class="form-control" name="id_tugas" value="<?= $this->uri->segment('3') ?>">
                                         </td>
                                         <td>
                                             <h5 class="card-text">Due : <?= date('d F Y',  strtotime($sia['deadline'])) ?> <?= $sia['waktu'] ?></h5>
@@ -38,7 +38,6 @@
                                                 <?= $sia['nama_file'] ?>
                                             </a>
                                             <br><br>
-                                            <?= form_error('image', '<small class="text-danger">', '</small>'); ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -49,11 +48,11 @@
                                         </td>
                                     </tr>
                                     <td align="left" width="140">
-                                        <a href="<?= base_url('Home/kumpulTugas') ?>">
 
-                                            <button type="button" class="btn btn-success btn-sm">
-                                                Submit Tugas
-                                            </button></a>
+
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            Submit Tugas
+                                        </button>
                                     </td>
 
                                 <?php endforeach;  ?>

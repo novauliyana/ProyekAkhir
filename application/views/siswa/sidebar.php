@@ -42,6 +42,10 @@
                 <a class="nav-link" href="<?= base_url('Home/dashboard') ?>">
                     <i class="mdi mdi-message-text menu-icon"></i>
                     <span class="menu-title">Pesan</span>
+                    <span style="background-color: green;width: 15px; float: right; border-radius: 50px; text-align: center;">
+                        <?php foreach ($jumlah_chat as $chat) : ?>
+                            <b><?= $chat->belum_terbaca; ?></b>
+                        <?php endforeach; ?></span>
                 </a>
             </li>
 
