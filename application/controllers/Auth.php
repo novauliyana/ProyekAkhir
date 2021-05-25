@@ -77,6 +77,61 @@ class Auth extends CI_Controller
         }
     }
 
+    public function forgotPassword()
+    {
+        $this->load->view('auth/js');
+        $this->load->view('auth/head');
+        $this->load->view('auth/forgot');
+
+        //$this->_sendEmail();
+    }
+
+    public function kirimEmail()
+    {
+        $this->_sendEmail();
+    }
+
+    private function _sendEmail()
+    {
+        $password = random_string('numeric', 5);
+        $email = $this->input->post('email');
+
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'nuliyana81@gmail.com',
+            'smtp_pass' => 'Kaniels24',
+            'smtp_port' => 465,
+            'mail_type' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n",
+        ];
+
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
+
+        $this->email->from('nuliyana81@gmail.com', 'Admin SMA Prestasi Prima');
+        $this->email->to($email);
+        $this->email->subject('Konfirmasi Perubahan Password');
+        $this->email->message("Password baru anda adalah :  $password");
+
+        if ($this->email->send()) {
+            $data2 = array(
+                'password'     => $password
+            );
+            $this->db->where('email', $email);
+            $this->db->update('user', $data2);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            <small><b>Password baru anda telah dikirimkan melalui email!</b></small></div>');
+            redirect('auth');
+            //return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
+
     public function logout()
     {
         $this->session->unset_userdata('email');

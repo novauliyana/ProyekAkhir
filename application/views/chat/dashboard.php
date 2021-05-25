@@ -9,7 +9,7 @@
                         <?php foreach ($users as $item) { ?>
                             <div class="card ml-2 mt-2" style="width: 18rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?= $item->username ?></h5>
+                                    <h5 class="card-title"><?= $item->nama ?></h5>
                                     <p class="card-text">Chat Saya</p>
                                     <a href="<?= base_url('home/chat/' . $item->id_user) ?>" class="btn btn-primary">Start Chat</a>
                                 </div>

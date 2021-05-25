@@ -283,27 +283,17 @@ class Guru extends CI_Controller
             $this->load->view('guru/kelas/addulangan');
             $this->load->view('guru/js');
         } else {
-            $config['upload_path'] = './assets/materi';
-            $config['allowed_types'] = 'api|mp4|mkv|pdf|docx|pptx';
-            $this->load->library('upload');
-            $this->upload->initialize($config);
-            $this->upload->do_upload('image');
-            $data_image = $this->upload->data('file_name');
-            $location = 'assets/materi/';
-            $pict = $location . $data_image;
             $idmapel = $this->input->post('id_mapel');
             $data = array(
                 'judul_ulangan'   => $this->input->post('judul_ulangan'),
                 'deskripsi'      => $this->input->post('deskripsi'),
-                'deadline'   => $this->input->post('deadline'),
+                'tipe'      => $this->input->post('tipe'),
                 'waktu'      => $this->input->post('waktu'),
-                'nama_file'      => $data_image,
-                'file'         => $pict,
                 'id_mapel'       => $idmapel,
                 'id_user'        => $this->session->userdata('id_user'),
             );
 
-            $this->Siswa_m->tambah_data_ulangan($data);
+            $this->Siswa_m->insert_data($data, 'ulangan');
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <small><b>Ulangan berhasil ditambahkan!</b></small>
@@ -702,7 +692,23 @@ class Guru extends CI_Controller
         $this->load->view('guru/js');
     }
 
+    public function ulangan_pilgan($id)
+    {
+        $da['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['soal'] = $this->Siswa_m->get_ulangan_pilgan($id);
+        $this->load->view('guru/head', $da);
+        $this->load->view('guru/kelas/ulangan_pilgan', $data);
+        $this->load->view('guru/js');
+    }
 
+    public function ulangan_essai($id)
+    {
+        $da['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['soal'] = $this->Siswa_m->get_ulangan_essai($id);
+        $this->load->view('guru/head', $da);
+        $this->load->view('guru/kelas/ulangan_essai', $data);
+        $this->load->view('guru/js');
+    }
 
     public function editnilaitugas($id)
     {
@@ -777,5 +783,174 @@ class Guru extends CI_Controller
 
         $this->Siswa_m->updatenilaiulangan($where, $data);
         redirect("guru/kumpululangan/" . $id . '/' . $idmapel);
+    }
+
+    public function add_soal_pilgan()
+    {
+        $da['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        // $data['kelas'] = $this->Siswa_m->get_class_guru();
+        $this->load->view('guru/head', $da);
+        $this->load->view('guru/kelas/add_soal_pilgan');
+        $this->load->view('guru/js');
+    }
+
+    public function add_soal_essai()
+    {
+        $da['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        // $data['kelas'] = $this->Siswa_m->get_class_guru();
+        $this->load->view('guru/head', $da);
+        $this->load->view('guru/kelas/add_soal_essai');
+        $this->load->view('guru/js');
+    }
+
+    public function insert_ujian_pilgan()
+    {
+        $id = $this->input->post('id_ulangan');
+        $idmapel = $this->input->post('id_mapel');
+        $pertanyaan            = $this->input->post('soal');
+        $a                     = $this->input->post('a');
+        $b                    = $this->input->post('b');
+        $c                    = $this->input->post('c');
+        $d                    = $this->input->post('d');
+        $kunci                = $this->input->post('kunci');
+        $data = array(
+            'id_ulangan' => $id,
+            'id_mapel' => $idmapel,
+            'pertanyaan' => $pertanyaan,
+            'option_a' => $a,
+            'option_b' => $b,
+            'option_c' => $c,
+            'option_d' => $d,
+            'kunci_jawaban' => $kunci
+        );
+        if ($pertanyaan == '') {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-ban"></i> Maaf, Input Soal Gagal!</h4> Mata Kuliah dan Pertanyaan Soal tidak boleh dikosongkan.</div>');
+            redirect("guru/ulangan_pilgan/" . $id . '/' . $idmapel);
+        } else {
+            $this->Siswa_m->insert_data($data, 'soal_ujian_pilgan');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> Selamat, Soal berhasil dibuat!</h4>untuk melihat soal tersebut bisa anda lihat di menu <b>Daftar Soal ujian</b>.</div>');
+            redirect("guru/ulangan_pilgan/" . $id . '/' . $idmapel);
+        }
+    }
+
+    public function edit_ujian_pilgan($id)
+    {
+        $da['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['soal'] = $this->Siswa_m->get_soal_pilgan($id);
+        $this->load->view('guru/head', $da);
+        $this->load->view('guru/kelas/edit_soal_pilgan', $data);;
+        $this->load->view('guru/js');
+    }
+
+    public function edit_ujian_essai($id)
+    {
+        $da['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['soal'] = $this->Siswa_m->get_soal_essai($id);
+        $this->load->view('guru/head', $da);
+        $this->load->view('guru/kelas/edit_soal_essai', $data);;
+        $this->load->view('guru/js');
+    }
+
+    public function update_ujian_pilgan()
+    {
+        $idsoal = $this->input->post('id_soal');
+        $id = $this->input->post('id_ujian');
+        $idmapel = $this->input->post('id_mapel');
+        $pertanyaan            = $this->input->post('soal');
+        $a                     = $this->input->post('a');
+        $b                    = $this->input->post('b');
+        $c                    = $this->input->post('c');
+        $d                    = $this->input->post('d');
+        $kunci                = $this->input->post('kunci');
+        $data = array(
+            'id_ulangan' => $id,
+            'id_mapel' => $idmapel,
+            'pertanyaan' => $pertanyaan,
+            'option_a' => $a,
+            'option_b' => $b,
+            'option_c' => $c,
+            'option_d' => $d,
+            'kunci_jawaban' => $kunci
+        );
+
+        $where = array(
+            'id_soal' => $idsoal
+        );
+
+        if ($pertanyaan == '') {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-ban"></i> Maaf, Input Soal Gagal!</h4> Mata Kuliah dan Pertanyaan Soal tidak boleh dikosongkan.</div>');
+            redirect("guru/ulangan_pilgan/" . $id . '/' . $idmapel);
+        } else {
+            $this->Siswa_m->update_data($where, $data, 'soal_ujian_pilgan');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> Selamat, Soal berhasil diubah!</h4>untuk melihat soal tersebut bisa anda lihat di menu <b>Daftar Soal ujian</b>.</div>');
+            redirect("guru/ulangan_pilgan/" . $id . '/' . $idmapel);
+        }
+    }
+
+    public function update_ujian_essai()
+    {
+        $idsoal = $this->input->post('id_soal');
+        $id = $this->input->post('id_ujian');
+        $idmapel = $this->input->post('id_mapel');
+        $pertanyaan            = $this->input->post('soal');
+
+        $data = array(
+            'id_ulangan' => $id,
+            'id_mapel' => $idmapel,
+            'pertanyaan' => $pertanyaan
+        );
+
+        $where = array(
+            'id_soal_esai' => $idsoal
+        );
+
+        if ($pertanyaan == '') {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-ban"></i> Maaf, Input Soal Gagal!</h4> Mata Kuliah dan Pertanyaan Soal tidak boleh dikosongkan.</div>');
+            redirect("guru/ulangan_essai/" . $id . '/' . $idmapel);
+        } else {
+            $this->Siswa_m->update_data($where, $data, 'soal_ujian_essai');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> Selamat, Soal berhasil diubah!</h4>untuk melihat soal tersebut bisa anda lihat di menu <b>Daftar Soal ujian</b>.</div>');
+            redirect("guru/ulangan_essai/" . $id . '/' . $idmapel);
+        }
+    }
+
+    public function hapus_ujian_pilgan($id, $idujian, $idmapel)
+    {
+        $where = array(
+            'id_soal' => $id
+        );
+        $this->Siswa_m->hapus_data($where, 'soal_ujian_pilgan');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> Perhatian, Data telah berhasil dihapus!</h4></div>');
+        redirect("guru/ulangan_pilgan/" . $idujian . '/' . $idmapel);
+    }
+
+    public function hapus_ujian_essai($id, $idujian, $idmapel)
+    {
+        $where = array(
+            'id_soal_esai' => $id
+        );
+        $this->Siswa_m->hapus_data($where, 'soal_ujian_essai');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> Perhatian, Data telah berhasil dihapus!</h4></div>');
+        redirect("guru/ulangan_essai/" . $idujian . '/' . $idmapel);
+    }
+
+    public function insert_ujian_essai()
+    {
+        $id = $this->input->post('id_ulangan');
+        $idmapel = $this->input->post('id_mapel');
+        $pertanyaan            = $this->input->post('soal');
+        $data = array(
+            'id_ulangan' => $id,
+            'id_mapel' => $idmapel,
+            'pertanyaan' => $pertanyaan
+        );
+        if ($pertanyaan == '') {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-ban"></i> Maaf, Input Soal Gagal!</h4> Mata Kuliah dan Pertanyaan Soal tidak boleh dikosongkan.</div>');
+            redirect("guru/ulangan_essai/" . $id . '/' . $idmapel);
+        } else {
+            $this->Siswa_m->insert_data($data, 'soal_ujian_essai');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> Selamat, Soal berhasil dibuat!</h4>untuk melihat soal tersebut bisa anda lihat di menu <b>Daftar Soal ujian</b>.</div>');
+            redirect("guru/ulangan_essai/" . $id . '/' . $idmapel);
+        }
     }
 }

@@ -4,9 +4,9 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-primary">Daftar Anggota</h3>
+                        <h3 class="card-title text-primary">Daftar Siswa</h3>
                         <?php foreach ($jumlahanggota as $jm) : ?>
-                            <p>Total : <b><?= $jm->jmlhanggota; ?> Anggota</b></p>
+                            <p>Total : <b><?= $jm->jmlhanggota; ?> Siswa</b></p>
                         <?php endforeach; ?></p>
                         <div class="table-responsive pt-3">
                             <form>
@@ -30,8 +30,8 @@
                                             <tr>
                                                 <td width="30"><?= $no ?></td>
                                                 <td><?= $ag['nis'] ?></td>
-                                                <td><?= $ag['nama_siswa'] ?></td>
-                                                <td><img src="<?= base_url() . $ag['foto_siswa']; ?> " class="card-img"></td>
+                                                <td><?= $ag['nama_lengkap'] ?></td>
+                                                <td><img src="<?= base_url() . $ag['image']; ?> " class="card-img"></td>
 
                                             </tr>
                                         </tbody>

@@ -22,7 +22,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Tanggal Pengumpulan</label>
-                                <input type="date" class="form-control" name="deadline" placeholder="Deskripsi" value="<?= set_value('deadline') ?>">
+                                <input type="text" id="datepicker" class="form-control" name="deadline" placeholder="Deskripsi" value="<?= set_value('deadline') ?>">
                                 <?= form_error('deadline', '<small class="text-danger">', '</small>'); ?>
                             </div>
                             <div class="form-group">
